@@ -24,7 +24,8 @@ namespace SimpleScript.RunTime
         Lt,
         Gt,
         LtEq,
-        GtEq
+        GtEq,
+        Modul
     }
 
     public class Expression
@@ -339,6 +340,29 @@ namespace SimpleScript.RunTime
                         }
                     }
                 break;
+
+                case Operation.Modul:
+                    if (type == SimpleScriptTypes.Integer)
+                    {
+                        return (long)lValue % (long)rValue;
+                    }
+                    else
+                    {
+                        if (type == SimpleScriptTypes.Double)
+                        {
+                            if (leftExpression.Type == SimpleScriptTypes.Integer)
+                            {
+                                return (long)lValue % (double)rValue;
+                            }
+                            if (rightExpression.Type == SimpleScriptTypes.Integer)
+                            {
+                                return (double)lValue % (long)rValue;
+                            }
+                            return (double)lValue % (double)rValue;
+                        }
+                    }
+                    break;
+
                 case Operation.Gt:
                 case Operation.Great:
                     switch (type)

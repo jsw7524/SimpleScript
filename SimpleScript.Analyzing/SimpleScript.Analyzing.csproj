@@ -76,6 +76,10 @@
     <CoreCompileDependsOn>GenerateParser;$(CoreCompileDependsOn)</CoreCompileDependsOn>
     <UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
   </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <Target Name="GenerateLexer" Inputs="@(Lex)" Outputs="@(Lex->'%(Filename).cs')">
     <Exec Command="gplex.exe /stack /out:@(Lex ->'%(Filename).cs') %(Lex.Identity)" />
     <!--<CreateItem Include="%(Lex.Filename).cs">

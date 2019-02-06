@@ -1,4 +1,5 @@
 %using SimpleScript.RunTime;
+%using SimpleScript.RunTime.Statements;
 
 %namespace SimpleScript.Analyzing
 
@@ -169,8 +170,8 @@ printOp		:	PRINT Expr	{$$.statement = new PrintStatement($2.expr);}
 inputOp		:	INPUT IDENTIFIER {$$.statement = new InputStatement(symTable.GetID($2));}
 			;
 			
-forLoop		:	FOR IDENTIFIER OP_ASSIGN Expr TO Expr EOL forBody NEXT 
-				{$$.statement = new ForStatement(symTable.Get($2) as SymbolTableIntegerElement, $4.expr, $6.expr, $8.statementList);}
+forLoop		:	FOR OP_LEFT_PAR IDENTIFIER OP_ASSIGN Expr TO Expr OP_RIGHT_PAR EOL forBody NEXT 
+				{$$.statement = new ForStatement(symTable.Get($3) as SymbolTableIntegerElement, $5.expr, $7.expr, $10.statementList);}
 			;
 
 forBody		:	/*Empty*/			{$$.statementList = new StatementList();}

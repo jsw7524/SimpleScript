@@ -27,7 +27,7 @@ namespace SimpleScript.Interpreter
             try
             {
                 //file = new FileStream(args[0], FileMode.Open);
-                file = new FileStream("Script3.ss", FileMode.Open);
+                file = new FileStream("Script4.ss", FileMode.Open);
                 scn = new Scanner(file);
                 parser = new Parser(scn);
                 parser.Parse();
