@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,21 @@ namespace SimpleScript.RunTime
             ++counter;
             return counter - 1;
         }
+        public void SetType(int id, SimpleScriptTypes type, long size)
+        {
+            if (!symbolTable.ContainsKey(id))
+            {
+                throw new ArgumentException("Undeclared identifier.");
+            }
+            SymbolTableElement x = symbolTable[id];
 
+            if (type==SimpleScriptTypes.IntegerArray)
+            {
+                SymbolTableIntegerArrayElement stie = new SymbolTableIntegerArrayElement(x.Name, size);
+                symbolTable[id] = stie;
+            }
+
+        }
         public void SetType(int id, SimpleScriptTypes type)
         {
             if (!symbolTable.ContainsKey(id))
@@ -81,6 +96,7 @@ namespace SimpleScript.RunTime
                     break;
             }
         }
+
 
         public SymbolTableElement Get(string name)
         {

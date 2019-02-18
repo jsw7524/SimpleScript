@@ -11,6 +11,7 @@ namespace SimpleScript.RunTime
         Double = 1,
         Boolean = 2,
         String = 3,
-        None = 4
+        None = 4,
+        IntegerArray = 5
     }
 }

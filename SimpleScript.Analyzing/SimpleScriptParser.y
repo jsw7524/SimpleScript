@@ -105,12 +105,12 @@ varDecl		:	DIM IDENTIFIER AS INT		{int yId = symTable.Add($2); symTable.SetType(
 			|	DIM IDENTIFIER AS DOUBLE	{int yId = symTable.Add($2); symTable.SetType(yId, SimpleScriptTypes.Double);  $$.statement = new VriableDeclStatement(yId);}
 			|	DIM IDENTIFIER AS BOOL		{int yId = symTable.Add($2); symTable.SetType(yId, SimpleScriptTypes.Boolean); $$.statement = new VriableDeclStatement(yId);}
 			|	DIM IDENTIFIER AS STRING	{int yId = symTable.Add($2); symTable.SetType(yId, SimpleScriptTypes.String);  $$.statement = new VriableDeclStatement(yId);}
-    		|	DIM IDENTIFIER AS INT LeftBracket INTEGER_LITERAL RightBracket		{Console.WriteLine("Array!! size{0}",$6);}
+    		|	DIM IDENTIFIER AS INT LeftBracket INTEGER_LITERAL RightBracket		{Console.WriteLine("Array!! size{0}",$6);int yId = symTable.Add($2); symTable.SetType(yId, SimpleScriptTypes.IntegerArray,$6);  $$.statement = new VriableDeclStatement(yId,$6);}
 			;
 
 			
 assignOp	:	IDENTIFIER OP_ASSIGN Expr		{$$.statement = new AssignmentStatement(symTable.GetID($1), $3.expr);}
-            | 	IDENTIFIER  LeftBracket INTEGER_LITERAL RightBracket OP_ASSIGN Expr		{Console.WriteLine("Array!! OP_ASSIGN");}  
+            | 	IDENTIFIER  LeftBracket INTEGER_LITERAL RightBracket OP_ASSIGN Expr		{Console.WriteLine("Array!! OP_ASSIGN");$$.statement = new AssignmentStatement(symTable.GetID($1), $3, $6.expr);}  
 			;
 
 //Grammmar for expressions.
@@ -122,7 +122,7 @@ assignOp	:	IDENTIFIER OP_ASSIGN Expr		{$$.statement = new AssignmentStatement(sy
 Expr		:	OP_LEFT_PAR Expr OP_RIGHT_PAR		{ $$.expr = $2.expr; }
 			|	Literal						{ $$.expr = $1.expr; }
 			|	IDENTIFIER					{ $$.expr = new Expression(symTable.Get($1));}
-			|	IDENTIFIER LeftBracket INTEGER_LITERAL RightBracket					{ Console.WriteLine("read Array {0}!! index {1}",$1,$3);$$.expr= new Expression(999); }
+			|	IDENTIFIER LeftBracket INTEGER_LITERAL RightBracket					{ Console.WriteLine("read Array {0}!! index {1}",$1,$3);$$.expr= new Expression(symTable.Get($1),$3); }
 			|	Expr OP_ADD Expr			{ $$.expr = new Expression(Operation.Add,$1.expr,$3.expr); }
 			|	Expr OP_MINUS Expr			{ $$.expr = new Expression(Operation.Sub,$1.expr,$3.expr); }
 			|	OP_MINUS Expr %prec OP_MUL	{ $$.expr = new Expression(Operation.UnaryMinus,null,$2.expr); }

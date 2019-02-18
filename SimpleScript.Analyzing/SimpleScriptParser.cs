@@ -4,9 +4,9 @@
 
 // GPPG version 1.5.2
 // Machine:  PC200067
-// DateTime: 2019/2/18 下午 01:56:07
+// DateTime: 2019/2/18 下午 03:37:43
 // UserName: jsw7524
-// Input file <SimpleScriptParser.y - 2019/2/18 下午 01:55:15>
+// Input file <SimpleScriptParser.y - 2019/2/18 下午 03:33:24>
 
 // options: no-lines gplex
 
@@ -62,10 +62,10 @@ public class ScanObj {
 [GeneratedCodeAttribute( "Gardens Point Parser Generator", "1.5.2")]
 public class Parser: ShiftReduceParser<ValueType, LexLocation>
 {
-  // Verbatim content from SimpleScriptParser.y - 2019/2/18 下午 01:55:15
+  // Verbatim content from SimpleScriptParser.y - 2019/2/18 下午 03:33:24
 	SymbolTable symTable = SymbolTable.GetInstance;
 	public StatementList program = new StatementList();
-  // End verbatim content from SimpleScriptParser.y - 2019/2/18 下午 01:55:15
+  // End verbatim content from SimpleScriptParser.y - 2019/2/18 下午 03:33:24
 
 #pragma warning disable 649
   private static Dictionary<int, string> aliases;
@@ -321,14 +321,14 @@ public class Parser: ShiftReduceParser<ValueType, LexLocation>
 {int yId = symTable.Add(ValueStack[ValueStack.Depth-3].String); symTable.SetType(yId, SimpleScriptTypes.String);  CurrentSemanticValue.statement = new VriableDeclStatement(yId);}
         break;
       case 17: // varDecl -> DIM, IDENTIFIER, AS, INT, LeftBracket, INTEGER_LITERAL, RightBracket
-{Console.WriteLine("Array!! size{0}",ValueStack[ValueStack.Depth-2].Integer);}
+{Console.WriteLine("Array!! size{0}",ValueStack[ValueStack.Depth-2].Integer);int yId = symTable.Add(ValueStack[ValueStack.Depth-6].String); symTable.SetType(yId, SimpleScriptTypes.IntegerArray,ValueStack[ValueStack.Depth-2].Integer);  CurrentSemanticValue.statement = new VriableDeclStatement(yId,ValueStack[ValueStack.Depth-2].Integer);}
         break;
       case 18: // assignOp -> IDENTIFIER, OP_ASSIGN, Expr
 {CurrentSemanticValue.statement = new AssignmentStatement(symTable.GetID(ValueStack[ValueStack.Depth-3].String), ValueStack[ValueStack.Depth-1].expr);}
         break;
       case 19: // assignOp -> IDENTIFIER, LeftBracket, INTEGER_LITERAL, RightBracket, OP_ASSIGN, 
                //             Expr
-{Console.WriteLine("Array!! OP_ASSIGN");}
+{Console.WriteLine("Array!! OP_ASSIGN");CurrentSemanticValue.statement = new AssignmentStatement(symTable.GetID(ValueStack[ValueStack.Depth-6].String), ValueStack[ValueStack.Depth-4].Integer, ValueStack[ValueStack.Depth-1].expr);}
         break;
       case 20: // Expr -> OP_LEFT_PAR, Expr, OP_RIGHT_PAR
 { CurrentSemanticValue.expr = ValueStack[ValueStack.Depth-2].expr; }
@@ -340,7 +340,7 @@ public class Parser: ShiftReduceParser<ValueType, LexLocation>
 { CurrentSemanticValue.expr = new Expression(symTable.Get(ValueStack[ValueStack.Depth-1].String));}
         break;
       case 23: // Expr -> IDENTIFIER, LeftBracket, INTEGER_LITERAL, RightBracket
-{ Console.WriteLine("read Array {0}!! index {1}",ValueStack[ValueStack.Depth-4].String,ValueStack[ValueStack.Depth-2].Integer);CurrentSemanticValue.expr= new Expression(999); }
+{ Console.WriteLine("read Array {0}!! index {1}",ValueStack[ValueStack.Depth-4].String,ValueStack[ValueStack.Depth-2].Integer);CurrentSemanticValue.expr= new Expression(symTable.Get(ValueStack[ValueStack.Depth-4].String),ValueStack[ValueStack.Depth-2].Integer); }
         break;
       case 24: // Expr -> Expr, OP_ADD, Expr
 { CurrentSemanticValue.expr = new Expression(Operation.Add,ValueStack[ValueStack.Depth-3].expr,ValueStack[ValueStack.Depth-1].expr); }

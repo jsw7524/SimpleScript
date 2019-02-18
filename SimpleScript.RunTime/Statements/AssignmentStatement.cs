@@ -10,9 +10,18 @@ namespace SimpleScript.RunTime
         private int id;
         private Expression exp;
 
+        private long arrayIndex;
+
         public AssignmentStatement(int id, Expression exp)
         {
             this.id = id;
+            this.exp = exp;
+        }
+
+        public AssignmentStatement(int id, long index, Expression exp)
+        {
+            this.id = id;
+            arrayIndex = index;
             this.exp = exp;
         }
 
@@ -76,6 +85,20 @@ namespace SimpleScript.RunTime
                     throw new InvalidOperationException("Invalide assignment.");
                 }
             }
+
+            if (elem is SymbolTableIntegerArrayElement)
+            {
+                SymbolTableIntegerArrayElement ielem = (SymbolTableIntegerArrayElement)elem;
+                if (exp.Type == SimpleScriptTypes.Integer)
+                {
+                    ielem.container[(int)arrayIndex]= (long)exp.Evaluate();
+                }
+                else
+                {
+                    throw new InvalidOperationException("Invalide assignment.");
+                }
+            }
+
         }
 
         #endregion

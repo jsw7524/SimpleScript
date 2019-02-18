@@ -50,6 +50,23 @@ namespace SimpleScript.RunTime
             }
         }
 
+
+        private long arrayIndex = 0;
+        public Expression(SymbolTableElement elem, long  index)
+        {
+            if (elem == null)
+            {
+                throw new ArgumentNullException("elem");
+            }
+            this.operation = Operation.SymbolElement;
+            this.element = elem;
+            if (elem is SymbolTableIntegerArrayElement)
+            {
+                type = SimpleScriptTypes.Integer;
+                arrayIndex = index;
+            }
+        }
+
         public Expression(SymbolTableElement elem)
         {
             if (elem == null)
@@ -223,6 +240,13 @@ namespace SimpleScript.RunTime
                 {
                     return ((SymbolTableStringElement)element).Value;
                 }
+
+                if (element is SymbolTableIntegerArrayElement)
+                {
+                    var ddd=(((SymbolTableIntegerArrayElement)element).container)[(int)arrayIndex];
+                    return ddd;
+                }
+
                 throw new InvalidOperationException();
             }
             if (this.operation == Operation.Constant)

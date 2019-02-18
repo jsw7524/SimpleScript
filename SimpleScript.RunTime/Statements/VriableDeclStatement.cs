@@ -9,9 +9,17 @@ namespace SimpleScript.RunTime
     {
         private int varID;
 
+        private long arraySize;
+
         public VriableDeclStatement(int id)
         {
             this.varID = id;
+        }
+
+        public VriableDeclStatement(int id, long size)
+        {
+            this.varID = id;
+            this.arraySize = size;
         }
 
         public string Print()

@@ -1,0 +1,4 @@
+
+gplex.exe /stack SimpleScriptScaner.lex 
+
+gppg.exe /gplex /nolines /verbose SimpleScriptParser.y > SimpleScriptParser.cs

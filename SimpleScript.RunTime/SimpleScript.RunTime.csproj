@@ -62,6 +62,7 @@
     <Compile Include="SymbolTable\SymbolTableBoolElement.cs" />
     <Compile Include="SymbolTable\SymbolTableDoubleElement.cs" />
     <Compile Include="SymbolTable\SymbolTableElement.cs" />
+    <Compile Include="SymbolTable\SymbolTableIntegerArrayElement.cs" />
     <Compile Include="SymbolTable\SymbolTableIntegerElement.cs" />
     <Compile Include="SymbolTable\SymbolTableStringElement.cs" />
   </ItemGroup>
