@@ -38,6 +38,7 @@ namespace SimpleScript.Interpreter
                     program.Execute();
                     Console.WriteLine();
                 }
+                Console.ReadKey();
             }
             finally
             {

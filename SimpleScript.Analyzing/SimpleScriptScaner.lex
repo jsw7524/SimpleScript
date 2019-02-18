@@ -68,6 +68,10 @@ Fi			Fi
 While		While
 Do			Do
 
+//jsw7524
+LeftBracket   "["
+RightBracket  "]"
+
 // The states into which this FSA can pass.
 %x CMMT		// Inside a comment.
 %x CMMT2	// Inside a comment.
@@ -154,3 +158,6 @@ Do			Do
 {Fi}		{ return (int) Tokens.FI; }
 {While}		{ return (int) Tokens.WHILE; }
 {Do}		{ return (int) Tokens.DO; }
+//jsw7524
+{LeftBracket}          { Console.WriteLine("LeftBracket!!");return (int) Tokens.LeftBracket; }
+{RightBracket}         { Console.WriteLine("RightBracket!!");return (int) Tokens.RightBracket; }
