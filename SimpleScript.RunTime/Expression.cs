@@ -51,8 +51,8 @@ namespace SimpleScript.RunTime
         }
 
 
-        private long arrayIndex = 0;
-        public Expression(SymbolTableElement elem, long  index)
+        private Expression arrayIndex ;
+        public Expression(SymbolTableElement elem, Expression index)
         {
             if (elem == null)
             {
@@ -243,7 +243,8 @@ namespace SimpleScript.RunTime
 
                 if (element is SymbolTableIntegerArrayElement)
                 {
-                    var ddd=(((SymbolTableIntegerArrayElement)element).container)[(int)arrayIndex];
+                    long i = (long)arrayIndex.Evaluate();
+                    var ddd=(((SymbolTableIntegerArrayElement)element).container)[(int)i];
                     return ddd;
                 }
 

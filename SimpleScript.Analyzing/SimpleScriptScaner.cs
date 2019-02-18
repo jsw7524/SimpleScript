@@ -5,10 +5,10 @@
 //  See accompanying file GPLEXcopyright.rtf.
 //
 //  GPLEX Version:  1.2.2
-//  Machine:  PC200067
-//  DateTime: 2019/2/18 下午 03:37:37
-//  UserName: jsw7524
-//  GPLEX input file <SimpleScriptScaner.lex - 2019/2/18 下午 01:37:36>
+//  Machine:  DESKTOP-RBKG4QN
+//  DateTime: 2019/2/18 下午 11:53:45
+//  UserName: netsp
+//  GPLEX input file <SimpleScriptScaner.lex - 2019/2/18 下午 11:39:39>
 //  GPLEX frame file <embedded resource>
 //
 //  Option settings: unicode, verbose, parser, stack, minimize

@@ -10,7 +10,7 @@ namespace SimpleScript.RunTime
         private int id;
         private Expression exp;
 
-        private long arrayIndex;
+        private Expression arrayIndex;
 
         public AssignmentStatement(int id, Expression exp)
         {
@@ -18,7 +18,7 @@ namespace SimpleScript.RunTime
             this.exp = exp;
         }
 
-        public AssignmentStatement(int id, long index, Expression exp)
+        public AssignmentStatement(int id, Expression index, Expression exp)
         {
             this.id = id;
             arrayIndex = index;
@@ -91,7 +91,8 @@ namespace SimpleScript.RunTime
                 SymbolTableIntegerArrayElement ielem = (SymbolTableIntegerArrayElement)elem;
                 if (exp.Type == SimpleScriptTypes.Integer)
                 {
-                    ielem.container[(int)arrayIndex]= (long)exp.Evaluate();
+                    long index = (long)arrayIndex.Evaluate();
+                    ielem.container[(int)index] = (long)exp.Evaluate();
                 }
                 else
                 {

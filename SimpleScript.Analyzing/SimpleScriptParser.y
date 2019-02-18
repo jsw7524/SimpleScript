@@ -110,7 +110,7 @@ varDecl		:	DIM IDENTIFIER AS INT		{int yId = symTable.Add($2); symTable.SetType(
 
 			
 assignOp	:	IDENTIFIER OP_ASSIGN Expr		{$$.statement = new AssignmentStatement(symTable.GetID($1), $3.expr);}
-            | 	IDENTIFIER  LeftBracket INTEGER_LITERAL RightBracket OP_ASSIGN Expr		{Console.WriteLine("Array!! OP_ASSIGN");$$.statement = new AssignmentStatement(symTable.GetID($1), $3, $6.expr);}  
+            | 	IDENTIFIER  LeftBracket Expr RightBracket OP_ASSIGN Expr		{Console.WriteLine("Array!! OP_ASSIGN");$$.statement = new AssignmentStatement(symTable.GetID($1), $3.expr, $6.expr);}  
 			;
 
 //Grammmar for expressions.
@@ -122,7 +122,7 @@ assignOp	:	IDENTIFIER OP_ASSIGN Expr		{$$.statement = new AssignmentStatement(sy
 Expr		:	OP_LEFT_PAR Expr OP_RIGHT_PAR		{ $$.expr = $2.expr; }
 			|	Literal						{ $$.expr = $1.expr; }
 			|	IDENTIFIER					{ $$.expr = new Expression(symTable.Get($1));}
-			|	IDENTIFIER LeftBracket INTEGER_LITERAL RightBracket					{ Console.WriteLine("read Array {0}!! index {1}",$1,$3);$$.expr= new Expression(symTable.Get($1),$3); }
+			|	IDENTIFIER LeftBracket Expr RightBracket					{ Console.WriteLine("read Array {0}!! index {1}",$1,$3);$$.expr= new Expression(symTable.Get($1),$3.expr); }
 			|	Expr OP_ADD Expr			{ $$.expr = new Expression(Operation.Add,$1.expr,$3.expr); }
 			|	Expr OP_MINUS Expr			{ $$.expr = new Expression(Operation.Sub,$1.expr,$3.expr); }
 			|	OP_MINUS Expr %prec OP_MUL	{ $$.expr = new Expression(Operation.UnaryMinus,null,$2.expr); }
